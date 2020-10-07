@@ -1,0 +1,41 @@
+Information regarding Chess
+
+-The board is 8x8
+-There are 64 spaces in total
+-The game ends when one teams king is in "checkmate" 
+    -meaning that he can make no moves where the other team can not kill him
+-When the game starts there are 32 pieces on the board
+    -16 for each team
+        -8 pawns
+        -2 rooks (starting on the outside in) 
+        -2 knights 
+        -2 bishops
+        -1 Queen on the inner right position
+        -1 King on the inner left position
+
+-Movement 
+-Various pieces have different movement patterns
+    -pawns 
+        -can only move forward, but can not attack what is in front of them
+        -they can attack diagonally 
+        -from their starting position they can either move one space or two spaces forward
+        -if they are not in their starting position they can only move one space forward 
+        -they can not go backwards 
+        -if a pawn reaches all the way to the other side of the board they can become a Queen
+    -rooks 
+        -can move orthogonally in a straight line as far as they would like 
+    -knights 
+        -can move in a L-shaped pattern 
+            -this is either 2x1 or 1x2 
+            -two up and one over or one up and two over 
+        -knights are the only piece that can "skip" by other pieces 
+            -meaning they do not get blocked by other pieces when trying to move
+    -bishops
+        -can move diagonally in a straight line as far as they would like
+    -queen 
+        -can move in any direction as far as they would like
+    -king 
+        -can move in any direction, but only one space at a time
+        -can not move into spaces that would put the it into "check" 
+            -check meaning that an opposing piece on the board can kill the king
+            -if the king is put into check then the player who's king is in check must move his king out of check 

@@ -1,0 +1,11 @@
+Add all used sources here, give a brief explanation of what you used and what you used it for. 
+Example 
+    <URL of source> 
+    <used this code> 
+    <to achieve this> 
+
+
+Source 1
+    <https://en.wikipedia.org/wiki/Chessboard#:~:text=In%20western%20chess%20the%20board,to%20one%20hundred%20and%20twelve.>
+    <In western chess the board has a square shape, with its side being divided into eight parts, resulting in a total of sixty-four squares.>
+    <I used this information to determine how big the Chessboard should be>
