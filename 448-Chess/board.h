@@ -14,6 +14,8 @@
 using namespace std; 
 #include "king.h"
 
+
+
 class board
 {
     private:

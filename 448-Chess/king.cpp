@@ -8,27 +8,29 @@
  *
  ---------------------------------------------------------------------------- */
  #include "king.h"
+ #include <iostream>
+ using namespace std;
 
- king::king(){} 
+ king::king(int row, int col)
+ {
+    currentRowPos = row;
+    currentColPos = col; 
+ } 
+
  king::~king(){}
 
  void king::move(int row, int col)
  {
     if(validMove(row, col))
     {
-        throw("invalid move for KING");
+        throw(std::runtime_error("invalid move for KING"));
     }
     else 
     {
-        updatePosition(row, col);
+        currentColPos = col; 
+        currentRowPos = row; 
     }
  }
-
-void king::updatePosition(int row, int col)
-{
-    currentRowPos = row; 
-    currentColPos = col;
-}
 
 // void king::attack(int row, int col)
 // {

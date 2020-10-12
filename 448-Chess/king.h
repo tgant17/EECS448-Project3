@@ -21,7 +21,7 @@
 
     public: 
 
-        king();
+        king(int row, int col);
         ~king(); 
 
         void move(int row, int col);
@@ -31,8 +31,6 @@
         // bool isAlive(); 
 
         bool validMove(int row, int col); 
-
-        void updatePosition(int row, int col);
 
         char getSymbol()const; 
 

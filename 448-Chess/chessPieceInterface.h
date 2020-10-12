@@ -23,8 +23,6 @@
 
         // virtual bool isAlive() = 0; 
 
-        virtual void updatePosition(int row, int col) = 0;
-
         virtual bool validMove(int row, int col) = 0;
 
 

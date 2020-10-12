@@ -9,3 +9,8 @@ Source 1
     <https://en.wikipedia.org/wiki/Chessboard#:~:text=In%20western%20chess%20the%20board,to%20one%20hundred%20and%20twelve.>
     <In western chess the board has a square shape, with its side being divided into eight parts, resulting in a total of sixty-four squares.>
     <I used this information to determine how big the Chessboard should be>
+
+Source 2 
+    <https://www.geeksforgeeks.org/pure-virtual-functions-and-abstract-classes/>
+    <class Derived: public Base>
+    <I used this reference to refresh my memory on how derived class definitions look in c++> 

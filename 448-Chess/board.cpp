@@ -52,7 +52,19 @@ void board::printBoard()
 
 void board::setLocation(int row, int col)
 {
-    king test; 
-    test.updatePosition(row,col); 
-    m_board[test.getCurrentRowPos()][test.getCurrentColPos()] = test.getSymbol(); 
+    king test(1,1); 
+    m_board[1][1] = test.getSymbol();
+    
+    m_board[test.getCurrentRowPos()][test.getCurrentColPos()] = '-';
+    try
+    {
+        test.move(row,col); 
+        m_board[row][col] = test.getSymbol();
+
+    }
+    catch(std::runtime_error& rte)
+    {
+        cout << rte.what() << endl;
+    }
+    
 }
