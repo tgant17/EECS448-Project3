@@ -25,6 +25,7 @@
 
         virtual bool validMove(int row, int col) = 0;
 
+        virtual char getSymbol()const = 0; 
 
     private: 
 

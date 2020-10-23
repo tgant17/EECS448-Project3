@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------
  *
  * File Name:  pawn.cpp
- * Author: Alec McGlynn
+ * Authors: Tristan Gant, Alec McGlynn
  * Assignment:   EECS-448 Project 3
  * Description:  cpp file for the pawn class
  * Date: 10/23/2020
@@ -27,7 +27,7 @@ pawn::~pawn() {}
 
 void pawn::move(int row, int col)
 {
-    if (validMove(row, col))
+    if (!validMove(row, col))
     {
         throw(std::runtime_error("invalid move for PAWN"));
     }
@@ -40,12 +40,23 @@ void pawn::move(int row, int col)
 
 bool pawn::validMove(int row, int col)
 {
-    if (currentColPos == col && ((isFirstMove && (symbol == 'P' && row == currentRowPos + 2) || symbol == 'p' && row == currentRowPos - 2) || ((symbol == 'P' && row == currentRowPos + 1) || (symbol == 'p' && row == currentRowPos - 1))))
+    if(isFirstMove == true)
     {
-        return (false);
+        //this check is put in place because 
+        //player 1 pawns only move up
+        //player 2 pawns only move down
+        if(symbol == 'P')
+        {
+            if(row < currentRowPos-2 || col != currentColPos) return false; 
+            else return true; 
+        }
+        else // this is for player 2 
+        {
+            if(row > currentRowPos+2 || col != currentColPos) return false;
+            else return true;
+        }
     }
-    else
-        return (true);
+    
 }
 
 char pawn::getSymbol() const

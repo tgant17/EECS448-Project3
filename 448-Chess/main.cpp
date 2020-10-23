@@ -14,6 +14,12 @@ int main()
 
     test.setInitialLocation();
     test.printBoard();
+    cout << "\n\n\n\n";
+    test.printPieceBoard();
+
+    system("clear");
+    test.move(6,0,3,0,1); 
+    test.printPieceBoard();
 
 
     return(0); 

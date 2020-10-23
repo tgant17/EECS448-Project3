@@ -10,6 +10,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include <iostream>
+#include <stdio.h>
+#include <ctype.h>
 #include <string>
 using namespace std; 
 #include "chessPieceInterface.h"
@@ -26,11 +28,12 @@ class board
 {
     private:
         char **m_board; 
-        chessPieceInterface** m_PiecesBoard; //[0-63]
+        chessPieceInterface* m_PiecesBoard[8][8]; //[0-63]
         int m_rows; 
         int m_cols; 
 
         bool checkForPiece(int row, int col); //checks the board to see if its occupied
+        // int checkPlayer(char piece, int player); //checks if its lowercase or uppercase
 
     public:
 
@@ -59,9 +62,24 @@ class board
         */
         void printBoard();
 
+        /**
+        * @pre The piece board is created 
+        * @param takes in a chessPiece poiner, pawn, queen, etc.. 
+        * @param row - where to place on board 
+        * @param col - where to place on board 
+        * @post adds an object to the chessPieceBoard
+        */
+        void addToPieceBoard(chessPieceInterface* piecePtr, int row, int col); 
+
+        /**
+        * @pre The board was created and filled with nullptr to start
+        * @post prints out the board with all the correct elements 
+        * @post mostly just used for debugging
+        */
+        void printPieceBoard();
+
 
         void move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player);
-        void addToPieceBoard(chessPieceInterface* piecePtr, int index); 
         string getLocation();
         bool isOffBoard(int x, int y); 
     

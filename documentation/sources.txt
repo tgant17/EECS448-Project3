@@ -14,3 +14,8 @@ Source 2
     <https://www.geeksforgeeks.org/pure-virtual-functions-and-abstract-classes/>
     <class Derived: public Base>
     <I used this reference to refresh my memory on how derived class definitions look in c++> 
+
+Source 3
+    <https://stackoverflow.com/questions/1768294/how-to-allocate-a-2d-array-of-pointers-in-c> 
+    <int*   data1[10][20];> 
+    <Used this reference to figure out how to declare a 2D array of pointers> 
