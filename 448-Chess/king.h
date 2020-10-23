@@ -15,13 +15,13 @@
  class king : public chessPieceInterface
  {
     private:
-        char symbol = 'K'; 
+        char symbol; 
         int currentRowPos;
         int currentColPos; 
 
     public: 
 
-        king(int row, int col);
+        king(int row, int col, int player);
         ~king(); 
 
         void move(int row, int col);

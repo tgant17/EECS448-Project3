@@ -11,10 +11,13 @@
  #include <iostream>
  using namespace std;
 
- king::king(int row, int col)
+ king::king(int row, int col, int player)
  {
     currentRowPos = row;
     currentColPos = col; 
+
+    if(player == 1) symbol = 'K';
+    else symbol = 'k';
  } 
 
  king::~king(){}

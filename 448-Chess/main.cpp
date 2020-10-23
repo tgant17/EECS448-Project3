@@ -11,26 +11,9 @@ int main()
 {
 
     board test; 
-    test.printBoard(); 
 
-    char answer = 'y';
-    int row; 
-    int col; 
-
-    while(answer != 'n')
-    {
-        cout << "would you like to move(y/n): ";
-        cin >> answer; 
-        if(answer == 'n') break;
-        cout << "row: ";
-        cin >> row; 
-        cout << "col: ";
-        cin >> col; 
-        test.setLocation(row, col);
-        test.printBoard();
-        
-    }
-
+    test.setInitialLocation();
+    test.printBoard();
 
 
     return(0); 
