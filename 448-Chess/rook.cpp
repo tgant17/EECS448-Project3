@@ -34,11 +34,41 @@
         currentRowPos = row; 
     }
  }
+ void rook::attack(int row, int col)
 
-// void king::attack(int row, int col)
-// {
+{
+  if (pieceAt(row, col) != EMPTY) return false;
+  else if (currentRowPos == row) 
+  {
+    // horizontal move
+    if (currentColPos == col) return false; // same position
+    int dx, x;
+    if (currentColPos < col) 
+      dx = 1;
+    else 
+      dx = -1; 
 
-// }
+    for (x = currentColPos + dx; x != col; x += dx) 
+    {
+      if (pieceAt(row, x) != EMPTY) return false; // occupied
+    }
+  }
+  else if (currentColPos == col) 
+  {
+    // vertical move
+    int dy, y;
+    if (currentRowPos < row) 
+      dy = 1;
+    else 
+      dy = -1; 
+
+    for (y = currentRowPos + dy; y != row; y += dy) 
+    {
+      if (pieceAt(y, col) != EMPTY) return false; // occupied
+
+      return true; // free path
+    }
+
 
 bool rook::validMove(int row, int col)
 {
