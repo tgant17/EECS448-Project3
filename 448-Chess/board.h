@@ -27,7 +27,17 @@ using namespace std;
 class board
 {
     private:
+        // this board keeps track of the symbols of each chess piece 
+        // that way we can pass this board into the move function of 
+        // every chess piece so it can determine where other pieces are at 
         char **m_board; 
+
+        //this is a 2D array of chessPieceInterface* pointers 
+        //this allows for the ability to assign any chess piece to the board 
+        //that we need and then call on its methods no matter what class it is 
+        //it wont matter if its a pawn, king, rook, etc 
+        //it will only be able to call on the pure virtual functions that were 
+        //declared in the chessPieceinterface class 
         chessPieceInterface* m_PiecesBoard[8][8]; //[0-63]
         int m_rows; 
         int m_cols; 
@@ -82,6 +92,7 @@ class board
         void move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player);
         string getLocation();
         bool isOffBoard(int x, int y); 
+        int convertCharToInt(char letter); 
     
 };
 #endif

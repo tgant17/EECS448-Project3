@@ -19,3 +19,13 @@ Source 3
     <https://stackoverflow.com/questions/1768294/how-to-allocate-a-2d-array-of-pointers-in-c> 
     <int*   data1[10][20];> 
     <Used this reference to figure out how to declare a 2D array of pointers> 
+
+Source 4 
+    <https://stackoverflow.com/questions/30007666/programming-chess-rook-movement>
+    <The main idea is to use "delta" values (dx/dy) for incrementing or decrementing cell indexes>
+    <Used this source for help with collision detection when moving rooks and other pieces that move a great distance>
+
+Source 5 
+    <https://stackoverflow.com/questions/8767166/passing-a-2d-array-to-a-c-function>
+    <The parameter is a pointer to a pointer> 
+    <Used this source to figure out how to pass a 2D array to a function>

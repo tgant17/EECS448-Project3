@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------
  *
  * File Name:  rook.cpp
- * Author: Tristan Gant 
+ * Author: Tristan Gant, Chenyu Hao
  * Assignment:   EECS-448 Project 3
  * Description:  cpp file for the rook class
  * Date: 10/22/2020
@@ -11,7 +11,7 @@
  #include <iostream>
  using namespace std;
 
- rook::rook(int row, int col, int player)
+ rook::rook(int row, int col, int player) //good
  {
     currentRowPos = row;
     currentColPos = col; 
@@ -20,13 +20,13 @@
     else symbol = 'r';
  } 
 
- rook::~rook(){}
+ rook::~rook(){} //good
 
- void rook::move(int row, int col)
+ void rook::move(int row, int col, char** b)
  {
-    if(validMove(row, col))
+    if(!validMove(row, col, b))
     {
-        throw(std::runtime_error("invalid move for KING"));
+        throw(std::runtime_error("invalid move for ROOK"));
     }
     else 
     {
@@ -34,11 +34,19 @@
         currentRowPos = row; 
     }
  }
- void rook::attack(int row, int col)
 
+bool rook::validMove(int row, int col, char** b)
 {
-  if (pieceAt(row, col) != EMPTY) return false;
-  else if (currentRowPos == row) 
+  //if there is a piece in the space you are moving to
+  if (!emptySpace(b[row][col])) return false; 
+
+  //if the position doesnt change 
+  else if(currentRowPos == row && currentColPos == col) return false; 
+
+  //if the row and the column change it is not moving in a straight line
+  else if(currentRowPos != row && currentColPos != col) return false; 
+
+  else if (currentRowPos == row) //row doesnt change  
   {
     // horizontal move
     if (currentColPos == col) return false; // same position
@@ -50,7 +58,7 @@
 
     for (x = currentColPos + dx; x != col; x += dx) 
     {
-      if (pieceAt(row, x) != EMPTY) return false; // occupied
+      if (!emptySpace(b[row][x])) return false; // occupied
     }
   }
   else if (currentColPos == col) 
@@ -64,32 +72,31 @@
 
     for (y = currentRowPos + dy; y != row; y += dy) 
     {
-      if (pieceAt(y, col) != EMPTY) return false; // occupied
-
-      return true; // free path
+      if (!emptySpace(b[y][col])) return false; // occupied
     }
-
-
-bool rook::validMove(int row, int col)
-{
-    if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
-    {
-        return(false); 
-    }
-    else return(true);
+  }
+  return true; // free path
 }
 
-char rook::getSymbol()const
+char rook::getSymbol()const //good
 {
     return(symbol);
 }
 
-int rook::getCurrentRowPos()const
+int rook::getCurrentRowPos()const //good
 {
     return(currentRowPos);
 }
 
-int rook::getCurrentColPos()const
+int rook::getCurrentColPos()const //good
 {
     return(currentColPos);
+}
+
+bool rook::emptySpace(char space)
+{
+  if(space == '-') 
+    return true; 
+  else 
+    return false; 
 }

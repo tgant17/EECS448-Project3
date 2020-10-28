@@ -22,11 +22,11 @@
 
  knight::~knight(){}
 
- void knight::move(int row, int col)
+ void knight::move(int row, int col, char **b)
  {
-    if(validMove(row, col))
+    if(!validMove(row, col, b))
     {
-        throw(std::runtime_error("invalid move for KING"));
+        throw(std::runtime_error("invalid move for KNIGHT"));
     }
     else 
     {
@@ -40,13 +40,42 @@
 
 // }
 
-bool knight::validMove(int row, int col)
+bool knight::validMove(int row, int col, char **b)
 {
-    if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
-    {
-        return(false); 
-    }
-    else return(true);
+    //if there is a piece there already 
+    if(!emptySpace(b[row][col])) return false; 
+
+    //if the position doesnt change
+    if(currentRowPos == row && currentColPos == col) return false; 
+
+    //up one and right two 
+    if(row == currentRowPos+1 && col == currentColPos+2) return true;  
+    
+    //up one and left two 
+    else if(row == currentRowPos+1 && col == currentColPos-2) return true; 
+
+    //up two and right one 
+    else if(row == currentRowPos+2 && col == currentColPos+1) return true; 
+
+    //up two and left one
+    else if(row == currentRowPos+2 && col == currentColPos-1) return true; 
+
+    //down one and left two 
+    else if(row == currentRowPos-1 && col == currentColPos-2) return true; 
+
+    //down one and right two
+    else if(row == currentRowPos-1 && col == currentColPos+2) return true; 
+
+    //down two and left one
+    else if(row == currentRowPos-2 && col == currentColPos-1) return true; 
+
+    //down two and right one
+    else if(row == currentRowPos-2 && col == currentColPos+1) return true; 
+
+    //if not an L
+    else return false;
+
+
 }
 
 char knight::getSymbol()const
@@ -62,4 +91,12 @@ int knight::getCurrentRowPos()const
 int knight::getCurrentColPos()const
 {
     return(currentColPos);
+}
+
+bool knight::emptySpace(char space)
+{
+  if(space == '-') 
+    return true; 
+  else 
+    return false; 
 }

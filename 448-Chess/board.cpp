@@ -238,10 +238,14 @@ void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int cur
     {
         try
         {
-            m_PiecesBoard[pickRow][pickCol]->move(moveToRow,moveToCol);
-            chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; 
-            m_PiecesBoard[pickRow][pickCol] = nullptr; 
-            m_PiecesBoard[moveToRow][moveToCol] = temp;
+            m_PiecesBoard[pickRow][pickCol]->move(moveToRow,moveToCol, m_board); //calls the piece move function
+            chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
+            m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
+            m_PiecesBoard[moveToRow][moveToCol] = temp; //sets the new index to be the chess piece
+
+            //update the char board -- because it is passed to the pieces classes when move is called
+            m_board[pickRow][pickCol] = '-'; 
+            m_board[moveToRow][moveToCol] = m_PiecesBoard[moveToRow][moveToCol]->getSymbol();
         }
         catch(const runtime_error& rte)
         {
@@ -249,4 +253,60 @@ void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int cur
         }
         
     }
+}
+
+int board::convertCharToInt(char letter)
+{
+    switch (letter)
+    {
+    case 'A':
+        return 0;
+        break;
+    case 'B':
+        return 1;
+        break;
+    case 'C':
+        return 2;
+        break;
+    case 'D':
+        return 3;
+        break;
+    case 'E':
+        return 4;
+        break;
+    case 'F':
+        return 5;
+        break;
+    case 'G':
+        return 6;
+        break;
+    case 'H':
+        return 7;
+        break;
+    case 'a':
+        return 0;
+        break;
+    case 'b':
+        return 1;
+        break;
+    case 'c':
+        return 2;
+        break;
+    case 'd':
+        return 3;
+        break;
+    case 'e':
+        return 4;
+        break;
+    case 'f':
+        return 5;
+        break;
+    case 'g':
+        return 6;
+        break;
+    case 'h':
+        return 7;
+        break;
+    }
+    return letter;
 }

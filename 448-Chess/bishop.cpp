@@ -9,6 +9,7 @@
  ---------------------------------------------------------------------------- */
  #include "bishop.h"
  #include <iostream>
+ #include <cmath>
  using namespace std;
 
  bishop::bishop(int row, int col, int player)
@@ -22,11 +23,11 @@
 
  bishop::~bishop(){}
 
- void bishop::move(int row, int col)
+ void bishop::move(int row, int col, char **b)
  {
-    if(validMove(row, col))
+    if(!validMove(row, col, b))
     {
-        throw(std::runtime_error("invalid move for KING"));
+        throw(std::runtime_error("invalid move for BISHOP"));
     }
     else 
     {
@@ -40,13 +41,20 @@
 
 // }
 
-bool bishop::validMove(int row, int col)
+bool bishop::validMove(int row, int col, char **b)
 {
-    if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
+    //if there is a piece at this space on the board
+    if(!emptySpace(b[row][col])) return false; 
+
+    // check if its NOT diagonal
+    // if the difference between the startingRow and the destination row 
+    // is equal to the difference between the startingCol and the destination col
+    if(abs(currentRowPos - row) != abs(currentColPos - col)) return false; 
+    else
     {
-        return(false); 
+        //this is where the movement logic should go 
+        //please test in main to make sure it works 
     }
-    else return(true);
 }
 
 char bishop::getSymbol()const
@@ -62,4 +70,12 @@ int bishop::getCurrentRowPos()const
 int bishop::getCurrentColPos()const
 {
     return(currentColPos);
+}
+
+bool bishop::emptySpace(char space)
+{
+  if(space == '-') 
+    return true; 
+  else 
+    return false; 
 }

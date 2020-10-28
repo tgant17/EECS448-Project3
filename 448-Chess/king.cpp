@@ -22,9 +22,9 @@
 
  king::~king(){}
 
- void king::move(int row, int col)
+ void king::move(int row, int col, char **b)
  {
-    if(validMove(row, col))
+    if(!validMove(row, col,b))
     {
         throw(std::runtime_error("invalid move for KING"));
     }
@@ -40,8 +40,14 @@
 
 // }
 
-bool king::validMove(int row, int col)
+bool king::validMove(int row, int col, char **b)
 {
+    //if there is a piece in the space already 
+    if(!emptySpace(b[row][col])) return false;
+
+    //if the position doesnt change
+    if(currentRowPos == row && currentColPos == col) return false; 
+
     if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
     {
         return(false); 
@@ -62,4 +68,12 @@ int king::getCurrentRowPos()const
 int king::getCurrentColPos()const
 {
     return(currentColPos);
+}
+
+bool king::emptySpace(char space)
+{
+  if(space == '-') 
+    return true; 
+  else 
+    return false; 
 }

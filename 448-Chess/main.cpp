@@ -13,13 +13,49 @@ int main()
     board test; 
 
     test.setInitialLocation();
-    test.printBoard();
-    cout << "\n\n\n\n";
     test.printPieceBoard();
 
-    system("clear");
-    test.move(6,0,3,0,1); 
-    test.printPieceBoard();
+cout << "WELCOME TO CHESS" << endl;
+char n = 'y'; 
+int startRow, startCol, endRow, endCol; 
+char inpCol, inpEndCol;
+
+    while(n != 'n')
+    {
+        cout << "\n\twould u like to move a piece: ";
+        cin >> n; 
+
+        cout << "what row is your piece at: ";
+        cin >> startRow;
+        cout << "what col is your piece at: ";
+        cin >> inpCol; 
+        cout << "what row do u want to move to: ";
+        cin >> endRow;
+        cout << "what col do u want to move to: ";
+        cin >> inpEndCol; 
+
+        startCol = test.convertCharToInt(inpCol); 
+        endCol = test.convertCharToInt(inpEndCol); 
+
+        system("clear");
+        test.move(startRow-1, startCol, endRow-1, endCol, 1); 
+        test.printPieceBoard();
+    }
+
+    //  BISHOPS can move diagonally in every direction but sometimes that cant move so far (?)
+
+    // WISH LIST 
+    // TAKE IN A STRING FOR INPUTS and parse the string and convert to int / char
+    //      input - A2 
+    //      input - A4 
+
+    //RUNTIME STUFF 
+    //  CHECK AND MAKE SURE THE INPUTS ARE 1-8 and A-H
+    //  INPUT ERROR CHECKING WILL BE A BIG THING OTHERWISE IT WILL RESULT IN A SEGFAULT
+    //  ALSO WHEN ASKING FOR A PIECE LOCATION AT RUNTIME
+    //      CHECK AND MAKE SURE THERE IS A PIECE AT THAT LOCATION
+    //      CHECK AND MAKE SURE IT IS THE CORRECT PLAYERS PIECE
+
 
 
     return(0); 

@@ -24,19 +24,21 @@
         queen(int row, int col, int player);
         ~queen(); 
 
-        void move(int row, int col);
+        void move(int row, int col, char **b);
 
         // void attack(int row, int col);
 
         // bool isAlive(); 
 
-        bool validMove(int row, int col); 
+        bool validMove(int row, int col, char **b); 
 
         char getSymbol()const; 
 
         int getCurrentRowPos()const; 
 
-        int getCurrentColPos()const; 
+        int getCurrentColPos()const;  
+
+        bool emptySpace(char space);
         
  };
 

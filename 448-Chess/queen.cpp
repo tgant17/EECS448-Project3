@@ -22,9 +22,9 @@
 
  queen::~queen(){}
 
- void queen::move(int row, int col)
+ void queen::move(int row, int col, char **b)
  {
-    if(validMove(row, col))
+    if(!validMove(row, col, b))
     {
         throw(std::runtime_error("invalid move for KING"));
     }
@@ -40,7 +40,7 @@
 
 // }
 
-bool queen::validMove(int row, int col)
+bool queen::validMove(int row, int col, char **b)
 {
     if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
     {
@@ -62,4 +62,12 @@ int queen::getCurrentRowPos()const
 int queen::getCurrentColPos()const
 {
     return(currentColPos);
+}
+
+bool queen::emptySpace(char space)
+{
+  if(space == '-') 
+    return true; 
+  else 
+    return false; 
 }
