@@ -36,10 +36,10 @@
     }
  }
 
-// void king::attack(int row, int col)
-// {
+void bishop::attack(int row, int col, char **b)
+{
 
-// }
+}
 
 bool bishop::validMove(int row, int col, char **b)
 {
@@ -78,4 +78,9 @@ bool bishop::emptySpace(char space)
     return true; 
   else 
     return false; 
+}
+
+void bishop::isDead()
+{
+    symbol = '-';
 }

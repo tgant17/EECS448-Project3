@@ -111,3 +111,72 @@ bool pawn::emptySpace(char space)
   else 
     return false; 
 }
+
+void pawn::isDead()
+{
+    symbol = '-'; 
+}
+
+void pawn::attack(int row, int col, char **b)
+{
+    if(!validAttack(row, col, b))
+    {
+        throw(std::runtime_error("invalid ATTACK for PAWN"));
+    }
+    else
+    {
+        isFirstMove = false;
+        currentColPos = col;
+        currentRowPos = row;
+    }
+}
+
+bool pawn::validAttack(int row, int col, char **b)
+{
+    //player 1 
+    if(symbol == 'P')
+    { 
+        //up and to the right
+        if(row == currentRowPos-1 && col == currentColPos+1 && isOpposingPlayer(b[row][col])) 
+            return true; 
+
+        //up and to the left 
+        else if(row == currentRowPos-1 && col == currentColPos-1 && isOpposingPlayer(b[row][col]))
+            return true; 
+        
+        else return false;
+    }
+    //player 2
+    else 
+    {
+        //down and to the right
+        if(row == currentRowPos+1 && col == currentColPos+1 && isOpposingPlayer(b[row][col])) 
+            return true; 
+
+        //down and to the left 
+        else if(row == currentRowPos+1 && col == currentColPos-1 && isOpposingPlayer(b[row][col]))
+            return true; 
+        
+        else return false;
+    }
+    
+}
+
+bool pawn::isOpposingPlayer(char s)
+{
+    if(symbol == 'P') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
+}
+

@@ -93,6 +93,8 @@ class board
         string getLocation();
         bool isOffBoard(int x, int y); 
         int convertCharToInt(char letter); 
+        void attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player);
+
     
 };
 #endif

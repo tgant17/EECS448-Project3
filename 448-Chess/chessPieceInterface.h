@@ -20,11 +20,11 @@
 
         virtual void move(int row, int col, char **b) = 0; 
 
-        // virtual void attack(int row, int col) = 0; 
+        virtual void attack(int row, int col, char **b) = 0; 
 
-        // virtual bool isAlive() = 0; 
+        virtual void isDead() = 0; 
 
-        // virtual bool validMove(int row, int col) = 0;
+        virtual bool validMove(int row, int col, char **b) = 0;
 
         virtual char getSymbol()const = 0; 
 

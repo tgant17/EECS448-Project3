@@ -26,9 +26,9 @@
 
         void move(int row, int col, char **b);
 
-        // void attack(int row, int col);
+        void attack(int row, int col, char **b);
 
-        // bool isAlive(); 
+        void isDead();
 
         bool validMove(int row, int col, char **b); 
 

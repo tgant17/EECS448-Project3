@@ -100,3 +100,10 @@ bool rook::emptySpace(char space)
   else 
     return false; 
 }
+
+void rook::attack(int row, int col, char **b){}
+
+void rook::isDead()
+{
+    symbol = '-';
+}

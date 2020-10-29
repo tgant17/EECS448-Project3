@@ -35,10 +35,10 @@
     }
  }
 
-// void king::attack(int row, int col)
-// {
+void king::attack(int row, int col, char **b)
+{
 
-// }
+}
 
 bool king::validMove(int row, int col, char **b)
 {
@@ -76,4 +76,9 @@ bool king::emptySpace(char space)
     return true; 
   else 
     return false; 
+}
+
+void king::isDead()
+{
+    symbol = '-';
 }

@@ -35,10 +35,10 @@
     }
  }
 
-// void king::attack(int row, int col)
-// {
+void knight::attack(int row, int col, char **b)
+{
 
-// }
+}
 
 bool knight::validMove(int row, int col, char **b)
 {
@@ -99,4 +99,9 @@ bool knight::emptySpace(char space)
     return true; 
   else 
     return false; 
+}
+
+void knight::isDead()
+{
+    symbol = '-';
 }

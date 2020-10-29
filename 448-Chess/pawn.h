@@ -39,13 +39,13 @@
 
 
 
-        void move(int row, int col, char** b);
+        void move(int row, int col, char** b); //good
 
-        // void attack(int row, int col);
+        void attack(int row, int col, char **b); //interface
 
-        // bool isAlive(); 
+        void isDead(); 
 
-        bool validMove(int row, int col, char **b); 
+        bool validMove(int row, int col, char **b); //good
 
         char getSymbol()const; //this is fine
 
@@ -54,6 +54,10 @@
         int getCurrentColPos()const; //this is fine
 
         bool emptySpace(char space); 
+
+        bool isOpposingPlayer(char ss); 
+
+        bool validAttack(int row, int col, char **b);
         
  };
 

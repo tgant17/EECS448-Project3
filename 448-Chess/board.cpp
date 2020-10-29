@@ -232,7 +232,7 @@ bool board::checkForPiece(int row, int col)
 }
 
 
-void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int currentTurnPlayer)
+void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player)
 {
     if(checkForPiece(pickRow, pickCol)) //if there is a piece on this spot 
     {
@@ -254,6 +254,30 @@ void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int cur
         
     }
 }
+
+void board::attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player)
+{
+    if(checkForPiece(pickRow, pickCol))
+        try
+        {
+            //pick the piece that is going to attack
+            //attack at the index given
+            m_PiecesBoard[pickRow][pickCol]->attack(moveToRow, moveToCol, m_board); 
+
+            //call is dead function to remove the piece from the board 
+            m_PiecesBoard[moveToRow][moveToCol]->isDead();
+
+            chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
+            m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
+            m_PiecesBoard[moveToRow][moveToCol] = temp; 
+
+            m_board[pickRow][pickCol] = '-';
+        }
+        catch(const runtime_error& rte)
+        {
+            cout << rte.what() << endl;
+        }
+    }
 
 int board::convertCharToInt(char letter)
 {
