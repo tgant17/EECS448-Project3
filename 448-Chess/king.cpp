@@ -4,7 +4,7 @@
  * Author: Tristan Gant 
  * Assignment:   EECS-448 Project 3
  * Description:  cpp file for the king class
- * Date: 10/12/2020
+ * Date: 10/29/2020
  *
  ---------------------------------------------------------------------------- */
  #include "king.h"
@@ -37,7 +37,15 @@
 
 void king::attack(int row, int col, char **b)
 {
-
+    if(!validAttack(row, col, b))
+    {
+        throw(std::runtime_error("invalid ATTACK for KING"));
+    }
+    else
+    {
+        currentColPos = col;
+        currentRowPos = row;
+    }
 }
 
 bool king::validMove(int row, int col, char **b)
@@ -48,11 +56,33 @@ bool king::validMove(int row, int col, char **b)
     //if the position doesnt change
     if(currentRowPos == row && currentColPos == col) return false; 
 
-    if(row > currentRowPos+1 || col > currentColPos+1 || row < currentRowPos-1 || col < currentColPos-1)
-    {
-        return(false); 
-    }
-    else return(true);
+    //diagonal up right 
+    if(row == currentRowPos+1 && col == currentColPos+1) return true; 
+
+    // down right
+    else if(row == currentRowPos-1 && col == currentColPos+1) return true; 
+
+    //down left 
+    else if(row == currentRowPos-1 && col == currentColPos-1) return true; 
+
+    //up left 
+    else if(row == currentRowPos+1 && col == currentColPos-1) return true; 
+
+    //right 
+    else if(row == currentRowPos && col == currentColPos+1) return true; 
+
+    //left 
+    else if(row == currentRowPos && col == currentColPos-1) return true; 
+
+    //up
+    else if(row == currentRowPos+1 && col == currentColPos) return true; 
+
+    //down 
+    else if(row == currentRowPos-1 && col == currentColPos) return true; 
+
+    else return false; 
+
+    
 }
 
 char king::getSymbol()const
@@ -81,4 +111,59 @@ bool king::emptySpace(char space)
 void king::isDead()
 {
     symbol = '-';
+}
+
+bool king::isOpposingPlayer(char s)
+{
+    if(symbol == 'K') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
+}
+
+bool king::validAttack(int row, int col, char **b)
+{
+    //if the space you are attacking is not an opposing player
+    if(!isOpposingPlayer(b[row][col])) return false; 
+    else 
+    {
+        //if the position doesnt change
+        if(currentRowPos == row && currentColPos == col) return false; 
+
+        //diagonal up right 
+        if(row == currentRowPos+1 && col == currentColPos+1) return true; 
+
+        // down right
+        else if(row == currentRowPos-1 && col == currentColPos+1) return true; 
+
+        //down left 
+        else if(row == currentRowPos-1 && col == currentColPos-1) return true; 
+
+        //up left 
+        else if(row == currentRowPos+1 && col == currentColPos-1) return true; 
+
+        //right 
+        else if(row == currentRowPos && col == currentColPos+1) return true; 
+
+        //left 
+        else if(row == currentRowPos && col == currentColPos-1) return true; 
+
+        //up
+        else if(row == currentRowPos+1 && col == currentColPos) return true; 
+
+        //down 
+        else if(row == currentRowPos-1 && col == currentColPos) return true; 
+
+        else return false; 
+    }
 }

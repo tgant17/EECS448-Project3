@@ -4,7 +4,7 @@
  * Author: Tristan Gant 
  * Assignment:   EECS-448 Project 3
  * Description:  cpp file for the board class
- * Date: 10/12/2020
+ * Date: 10/29/2020
  *
  ---------------------------------------------------------------------------- */
 #include "board.h"

@@ -37,7 +37,15 @@
 
 void knight::attack(int row, int col, char **b)
 {
-
+    if(!validAttack(row, col, b))
+    {
+        throw(std::runtime_error("invalid ATTACK for KNIGHT"));
+    }
+    else
+    {
+        currentColPos = col;
+        currentRowPos = row;
+    }
 }
 
 bool knight::validMove(int row, int col, char **b)
@@ -74,8 +82,6 @@ bool knight::validMove(int row, int col, char **b)
 
     //if not an L
     else return false;
-
-
 }
 
 char knight::getSymbol()const
@@ -104,4 +110,61 @@ bool knight::emptySpace(char space)
 void knight::isDead()
 {
     symbol = '-';
+}
+
+
+bool knight::isOpposingPlayer(char s)
+{
+    if(symbol == 'N') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
+}
+
+bool knight::validAttack(int row, int col, char **b)
+{
+    //if there is not an opposing player on the space that is being attacked 
+    if(!isOpposingPlayer(b[row][col])) return false; 
+    else 
+    {
+        //if the position doesnt change
+        if(currentRowPos == row && currentColPos == col) return false; 
+
+        //up one and right two 
+        if(row == currentRowPos+1 && col == currentColPos+2) return true;  
+        
+        //up one and left two 
+        else if(row == currentRowPos+1 && col == currentColPos-2) return true; 
+
+        //up two and right one 
+        else if(row == currentRowPos+2 && col == currentColPos+1) return true; 
+
+        //up two and left one
+        else if(row == currentRowPos+2 && col == currentColPos-1) return true; 
+
+        //down one and left two 
+        else if(row == currentRowPos-1 && col == currentColPos-2) return true; 
+
+        //down one and right two
+        else if(row == currentRowPos-1 && col == currentColPos+2) return true; 
+
+        //down two and left one
+        else if(row == currentRowPos-2 && col == currentColPos-1) return true; 
+
+        //down two and right one
+        else if(row == currentRowPos-2 && col == currentColPos+1) return true; 
+
+        //if not an L
+        else return false;
+    }
 }

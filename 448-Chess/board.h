@@ -4,7 +4,7 @@
  * Author: Tristan Gant 
  * Assignment:   EECS-448 Project 3
  * Description:  Header file for the board class
- * Date: 10/22/2020
+ * Date: 10/29/2020
  *
  ---------------------------------------------------------------------------- */
 #ifndef BOARD_H

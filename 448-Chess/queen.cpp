@@ -37,7 +37,7 @@
 
 void queen::attack(int row, int col, char **b)
 {
-
+    //needs to be defined
 }
 
 bool queen::validMove(int row, int col, char **b)
@@ -75,4 +75,27 @@ bool queen::emptySpace(char space)
 void queen::isDead()
 {
     symbol = '-';
+}
+
+bool queen::isOpposingPlayer(char s)
+{
+    if(symbol == 'Q') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
+}
+
+bool queen::validAttack(int row, int col, char **b)
+{
+    //needs to be defined 
 }

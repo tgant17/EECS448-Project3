@@ -84,3 +84,26 @@ void bishop::isDead()
 {
     symbol = '-';
 }
+
+bool bishop::validAttack(int row, int col, char **b)
+{
+    //needs to be defined 
+}
+
+bool bishop::isOpposingPlayer(char s)
+{
+    if(symbol == 'B') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
+}

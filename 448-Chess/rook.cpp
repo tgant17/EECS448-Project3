@@ -22,7 +22,7 @@
 
  rook::~rook(){} //good
 
- void rook::move(int row, int col, char** b)
+ void rook::move(int row, int col, char** b) //good
  {
     if(!validMove(row, col, b))
     {
@@ -35,7 +35,7 @@
     }
  }
 
-bool rook::validMove(int row, int col, char** b)
+bool rook::validMove(int row, int col, char** b) //good
 {
   //if there is a piece in the space you are moving to
   if (!emptySpace(b[row][col])) return false; 
@@ -101,9 +101,82 @@ bool rook::emptySpace(char space)
     return false; 
 }
 
-void rook::attack(int row, int col, char **b){}
+void rook::attack(int row, int col, char **b)
+{
+  if(!validAttack(row, col, b))
+  {
+    throw(std::runtime_error("invalid ATTACK for ROOK"));
+  }
+  else
+  {
+    currentColPos = col;
+    currentRowPos = row;
+  }
+}
+
+bool rook::validAttack(int row, int col, char **b)
+{
+  //if there is an opposing player in the space you are moving to
+  if (!isOpposingPlayer(b[row][col])) return false; 
+  else
+  {
+      //if the row and the column change it is not moving in a straight line
+      if(currentRowPos != row && currentColPos != col) return false; 
+
+      else if (currentRowPos == row) //row doesnt change  
+      {
+        // horizontal move
+        if (currentColPos == col) return false; // same position
+        int dx, x;
+        if (currentColPos < col) 
+          dx = 1;
+        else 
+          dx = -1; 
+
+        for (x = currentColPos + dx; x != col; x += dx) 
+        {
+          if (!emptySpace(b[row][x])) return false; // occupied
+        }
+      }
+      else if (currentColPos == col) 
+      {
+        // vertical move
+        int dy, y;
+        if (currentRowPos < row) 
+          dy = 1;
+        else 
+          dy = -1; 
+
+        for (y = currentRowPos + dy; y != row; y += dy) 
+        {
+          if (!emptySpace(b[y][col])) return false; // occupied
+        }
+      }
+  return true; // free path
+  }
+   
+}
+
 
 void rook::isDead()
 {
     symbol = '-';
+}
+
+bool rook::isOpposingPlayer(char s)
+{
+    if(symbol == 'R') //if player1 
+    {
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
+            return true; 
+        else 
+            return false; 
+    }
+    else 
+    {
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
+            return true; 
+        else 
+            return false;       
+    }
 }
