@@ -50,10 +50,10 @@ Compilation needs to be ran on the machine afterwords. Makefile included. Use 'm
 
 ## Authors
 
-* **Chenyu Hao** - *Extended work* - [CHENYU HAO](https://github.com/c082h002)
-* **Fengming Yang** - *Extended work* - [f436y923](https://github.com/f436y923)
-* **Mohammed Atif Siddiqui** - *Extended work* - [atifsiddiqui10](https://github.com/atifsiddiqui10)
-* **Tristan Gant** - *Extended work* - [tgant17](https://github.com/tgant17)
+* **Chenyu Hao** - *initial work* - [CHENYU HAO](https://github.com/c082h002)
+* **Fengming Yang** - *initial work* - [f436y923](https://github.com/f436y923)
+* **Mohammed Atif Siddiqui** - *initial work* - [atifsiddiqui10](https://github.com/atifsiddiqui10)
+* **Tristan Gant** - *initial work* - [tgant17](https://github.com/tgant17)
 
 ## Contributors
 
