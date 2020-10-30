@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------
  *
  * File Name:  bishop.cpp
- * Author: Tristan Gant 
+ * Author: Tristan Gant
  * Assignment:   EECS-448 Project 3
  * Description:  cpp file for the bishop class
  * Date: 10/22/2020
@@ -15,47 +15,174 @@
  bishop::bishop(int row, int col, int player)
  {
     currentRowPos = row;
-    currentColPos = col; 
+    currentColPos = col;
 
     if(player == 1) symbol = 'B';
     else symbol = 'b';
- } 
+ }
 
  bishop::~bishop(){}
 
- void bishop::move(int row, int col, char **b)
+ void bishop::move(int row, int col, char **b)//good
  {
     if(!validMove(row, col, b))
     {
         throw(std::runtime_error("invalid move for BISHOP"));
     }
-    else 
+    else
     {
-        currentColPos = col; 
-        currentRowPos = row; 
+        currentColPos = col;
+        currentRowPos = row;
     }
  }
 
-void bishop::attack(int row, int col, char **b)
+ bool bishop::validMove(int row, int col, char **b)//good
+ {
+     bool result = true;
+     //if there is a piece at this space on the board
+     if(!emptySpace(b[row][col]))
+     {
+         result =  false;
+     }
+     // check if its NOT diagonal
+     // if the difference between the startingRow and the destination row
+     // is equal to the difference between the startingCol and the destination col
+     if(abs(currentRowPos - row) != abs(currentColPos - col))
+     {
+         result =  false;
+     }
+
+     while (true)
+     {
+         if(row == currentRowPos && col == currentColPos)
+         {
+             break;
+         }
+         else
+         {
+             if( emptySpace(b[row][col]) )
+             {
+                 if(row > currentRowPos && col > currentColPos)
+                 {
+                     row--;
+                     col--;
+                 }
+                 else if(row > currentRowPos && col < currentColPos)
+                 {
+                     row--;
+                     col++;
+                 }
+                 else if( row < currentRowPos && col < currentColPos)
+                 {
+                     row++;
+                     col++;
+                 }
+                 else if(row < currentRowPos && col > currentColPos)
+                 {
+                     row++;
+                     col--;
+                 }
+             }
+             else
+             {
+                 result = false;
+                 break;
+             }
+         }
+     }
+
+     return result;
+ }
+
+void bishop::attack(int row, int col, char **b)//good
 {
-
-}
-
-bool bishop::validMove(int row, int col, char **b)
-{
-    //if there is a piece at this space on the board
-    if(!emptySpace(b[row][col])) return false; 
-
-    // check if its NOT diagonal
-    // if the difference between the startingRow and the destination row 
-    // is equal to the difference between the startingCol and the destination col
-    if(abs(currentRowPos - row) != abs(currentColPos - col)) return false; 
+    if(!validAttack(row, col, b))
+    {
+      throw(std::runtime_error("invalid ATTACK for BISHOP"));
+    }
     else
     {
-        //this is where the movement logic should go 
-        //please test in main to make sure it works 
+      currentColPos = col;
+      currentRowPos = row;
     }
 }
+
+bool bishop::validAttack(int row, int col, char **b)//good
+{
+    bool result = true;
+    if (!isOpposingPlayer(b[row][col]))
+    {
+        result =  false;
+    }
+    else
+    {
+        if(currentRowPos == row && currentColPos != col)
+        {
+            result =  false;
+        }
+        if(currentRowPos != row && currentColPos == col)
+        {
+            result =  false;
+        }
+
+        if(row < currentRowPos && col < currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row++;
+                col--;
+                if( !emptySpace(b[row][col])  )
+                {
+                    result =  false;
+                    break;
+                }
+            }
+        }
+        if(row < currentRowPos && col > currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row++;
+                col--;
+                if( !emptySpace(b[row][col])  )
+                {
+                    result =  false;
+                    break;
+                }
+            }
+        }
+        if(row > currentRowPos && col > currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row--;
+                col--;
+                if( !emptySpace(b[row][col])  )
+                {
+                    result =  false;
+                    break;
+                }
+            }
+        }
+        if(row > currentRowPos && col < currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row--;
+                col++;
+                if( !emptySpace(b[row][col])  )
+                {
+                    result =  false;
+                    break;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+
 
 char bishop::getSymbol()const
 {
@@ -74,10 +201,10 @@ int bishop::getCurrentColPos()const
 
 bool bishop::emptySpace(char space)
 {
-  if(space == '-') 
-    return true; 
-  else 
-    return false; 
+  if(space == '-')
+    return true;
+  else
+    return false;
 }
 
 void bishop::isDead()
@@ -85,25 +212,22 @@ void bishop::isDead()
     symbol = '-';
 }
 
-bool bishop::validAttack(int row, int col, char **b)
-{
-    //needs to be defined 
-}
+
 
 bool bishop::isOpposingPlayer(char s)
 {
-    if(symbol == 'B') //if player1 
+    if(symbol == 'B') //if player1
     {
-        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k') 
-            return true; 
-        else 
-            return false; 
+        if(s == 'p' || s == 'r' || s == 'n' || s == 'b' || s == 'q' || s == 'k')
+            return true;
+        else
+            return false;
     }
-    else 
+    else
     {
-        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K') 
-            return true; 
-        else 
-            return false;       
+        if(s == 'P' || s == 'R' || s == 'N' || s == 'B' || s == 'Q' || s == 'K')
+            return true;
+        else
+            return false;
     }
 }
