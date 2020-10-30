@@ -22,6 +22,9 @@
    * 2 bishops
    * 1 king 
    * 1 queen
+ * Two players can play the game 
+   * player 1 chess pieces denoted by upper case letters 
+   * player 2 chess pieces denoted by lower case letters 
 ## Input:
 Interaction with program occurs at runtime
 
