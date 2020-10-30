@@ -1,8 +1,11 @@
-chess: main.o king.o pawn.o queen.o rook.o knight.o bishop.o board.o 
-	g++ -std=c++11 -g -Wall main.o king.o pawn.o queen.o rook.o knight.o bishop.o board.o -o chess
+chess: main.o king.o pawn.o queen.o rook.o knight.o bishop.o board.o game.o
+	g++ -std=c++11 -g -Wall main.o king.o pawn.o queen.o rook.o knight.o bishop.o board.o game.o -o chess
 
-main.o: main.cpp chessPieceInterface.h king.h pawn.h queen.h rook.h knight.h bishop.h
+main.o: main.cpp chessPieceInterface.h king.h pawn.h queen.h rook.h knight.h bishop.h game.h
 	g++ -std=c++11 -g -Wall -c main.cpp
+
+game.o: game.h game.cpp
+		g++ -std=c++11 -g -Wall -c game.cpp 
 
 king.o: king.h king.cpp
 		g++ -std=c++11 -g -Wall -c king.cpp 
