@@ -1,18 +1,27 @@
 # EECS 448 - PROJECT 3
- For this program we extended on a game of Battleship.
+ For this program we created a game of Chess
  * Coding implementation was in C++
  * Executive class controls bulk of program operation.
  * Class list
-   * Battleship
-   * Board
-   * Executive
-   * player
- * Board Size: 9x9
-   * Columns denoted A-I
-   * Rows denoted 1-9
- * Number of ships per player:
-   * Chosen by player (options 1-5)
-   * Size of ships given by count. 1st ship is 1x1, second ship is 1x2, etc, up to 1x5 ship for a potential 5th ship. 
+   * game 
+   * board 
+   * chessPieceInterface
+   * pawn
+   * rook
+   * knight
+   * bishop
+   * king
+   * queen 
+ * Board Size: 8x8
+   * Columns denoted A-H
+   * Rows denoted 1-8
+ * Number of chess Pieces per player:
+   * 8 pawns 
+   * 2 rooks
+   * 2 knights 
+   * 2 bishops
+   * 1 king 
+   * 1 queen
 ## Input:
 Interaction with program occurs at runtime
 
