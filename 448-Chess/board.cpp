@@ -288,12 +288,14 @@ void board::attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int p
 
                 //call is dead function to remove the piece from the board 
                 m_PiecesBoard[moveToRow][moveToCol]->isDead();
+                m_PiecesBoard[moveToRow][moveToCol] = nullptr;
 
                 chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
                 m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
                 m_PiecesBoard[moveToRow][moveToCol] = temp; 
 
                 m_board[pickRow][pickCol] = '-';
+                m_board[moveToRow][moveToCol] = m_PiecesBoard[moveToRow][moveToCol]->getSymbol();
                 // x = true;
             }
             catch(std::runtime_error& rte)

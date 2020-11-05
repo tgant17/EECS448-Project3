@@ -258,9 +258,3 @@ void game::usersMoving()
     }while(validateInputLoop == false);
 }
 
-
-
-    //RUNTIME STUFF 
-    //  ALSO WHEN ASKING FOR A PIECE LOCATION AT RUNTIME
-    //      CHECK AND MAKE SURE IT IS THE CORRECT PLAYERS PIECE
-
