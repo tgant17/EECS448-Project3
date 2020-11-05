@@ -232,52 +232,80 @@ bool board::checkForPiece(int row, int col)
 }
 
 
-void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player)
+void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x)
 {
     if(checkForPiece(pickRow, pickCol)) //if there is a piece on this spot 
     {
-        try
+        //if the piece does not belong to the correct player
+        if(getPlayerByPiece(m_board[pickRow][pickCol]) != player)
         {
-            m_PiecesBoard[pickRow][pickCol]->move(moveToRow,moveToCol, m_board); //calls the piece move function
-            chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
-            m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
-            m_PiecesBoard[moveToRow][moveToCol] = temp; //sets the new index to be the chess piece
+            x = false;
+            throw(std::runtime_error("This piece is not yours to move"));
+        }
+        else 
+        {
+            try
+            {
+                m_PiecesBoard[pickRow][pickCol]->move(moveToRow,moveToCol, m_board); //calls the piece move function
+                chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
+                m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
+                m_PiecesBoard[moveToRow][moveToCol] = temp; //sets the new index to be the chess piece
 
-            //update the char board -- because it is passed to the pieces classes when move is called
-            m_board[pickRow][pickCol] = '-'; 
-            m_board[moveToRow][moveToCol] = m_PiecesBoard[moveToRow][moveToCol]->getSymbol();
+                //update the char board -- because it is passed to the pieces classes when move is called
+                m_board[pickRow][pickCol] = '-'; 
+                m_board[moveToRow][moveToCol] = m_PiecesBoard[moveToRow][moveToCol]->getSymbol();
+                // x = true;
+            }
+            catch(const runtime_error& rte)
+            {
+                cout << rte.what() << endl;
+                x = false;
+                return;
+            }
+            x = true;
         }
-        catch(const runtime_error& rte)
-        {
-            cout << rte.what() << endl;
-        }
-        
+
     }
 }
 
-void board::attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player)
+void board::attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x)
 {
     if(checkForPiece(pickRow, pickCol))
-        try
+    {
+        //if the piece does not belong to the correct player
+        if(getPlayerByPiece(m_board[pickRow][pickCol]) != player)
         {
-            //pick the piece that is going to attack
-            //attack at the index given
-            m_PiecesBoard[pickRow][pickCol]->attack(moveToRow, moveToCol, m_board); 
-
-            //call is dead function to remove the piece from the board 
-            m_PiecesBoard[moveToRow][moveToCol]->isDead();
-
-            chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
-            m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
-            m_PiecesBoard[moveToRow][moveToCol] = temp; 
-
-            m_board[pickRow][pickCol] = '-';
+            x = false;
+            throw(std::runtime_error("This piece is not yours to attack with"));
         }
-        catch(const runtime_error& rte)
+        else 
         {
-            cout << rte.what() << endl;
+            try
+            {
+                //pick the piece that is going to attack
+                //attack at the index given
+                m_PiecesBoard[pickRow][pickCol]->attack(moveToRow, moveToCol, m_board); 
+
+                //call is dead function to remove the piece from the board 
+                m_PiecesBoard[moveToRow][moveToCol]->isDead();
+
+                chessPieceInterface* temp = m_PiecesBoard[pickRow][pickCol]; //creates a ptr to its position before the move
+                m_PiecesBoard[pickRow][pickCol] = nullptr; //sets its initial position to null
+                m_PiecesBoard[moveToRow][moveToCol] = temp; 
+
+                m_board[pickRow][pickCol] = '-';
+                // x = true;
+            }
+            catch(std::runtime_error& rte)
+            {
+                cout << rte.what() << endl;
+                x = false; 
+                return;
+            }
+            x = true; 
         }
     }
+}
 
 int board::convertCharToInt(char letter)
 {
@@ -333,4 +361,17 @@ int board::convertCharToInt(char letter)
         break;
     }
     return letter;
+}
+
+int board::getPlayerByPiece(char piece)
+{
+    if(piece == 'K' || piece == 'Q' || piece == 'R' || piece == 'N' || piece == 'B' || piece == 'P')
+    {
+        return 1; 
+    }
+    if(piece == 'k' || piece == 'q' || piece == 'r' || piece == 'n' || piece == 'b' || piece == 'p')   
+    {
+        return 2;
+    }
+    else return 0; 
 }

@@ -119,10 +119,6 @@ void game::usersMoving()
                 cout << "invalid input" << endl;
                 continue;
             }
-            else 
-            {
-                validateInputLoop = true;
-            }
 
             //Converts the input to a single char and a int to pass as params
             inpCol = initialLocation[0]; 
@@ -152,10 +148,6 @@ void game::usersMoving()
                 cout << "invalid input" << endl;
                 continue;
             }
-            else 
-            {
-                validateInputLoop = true;
-            }
 
             //convert the input to a single char and int
             inpEndCol = destination[0]; 
@@ -166,8 +158,15 @@ void game::usersMoving()
             endCol = gameBoard.convertCharToInt(inpEndCol); 
 
             system("clear"); 
-            gameBoard.attack(startRow-1, startCol, endRow-1, endCol, 1);
-            // gameBoard.printPieceBoard();
+            try 
+            {
+                gameBoard.attack(startRow-1, startCol, endRow-1, endCol, getPlayer(), validateInputLoop);            
+            }
+            catch(std::runtime_error& rte)
+            {
+                cout << rte.what() << endl;
+                validateInputLoop = false;
+            }
         }
             //MOVE conditions
             /**
@@ -201,10 +200,6 @@ void game::usersMoving()
                 cout << "invalid input" << endl;
                 continue; 
             }
-            else 
-            {
-                validateInputLoop = true;
-            }
 
             //Converts the input to a single char and a int to pass as params
             inpCol = initialLocation[0]; 
@@ -234,10 +229,6 @@ void game::usersMoving()
                 cout << "invalid input" << endl;
                 continue;
             }
-            else 
-            {
-                validateInputLoop = true;
-            }
 
             //convert the input to a single char and int
             inpEndCol = destination[0]; 
@@ -248,8 +239,15 @@ void game::usersMoving()
             endCol = gameBoard.convertCharToInt(inpEndCol); 
 
             system("clear"); 
-            gameBoard.move(startRow-1, startCol, endRow-1, endCol, 1);
-            // gameBoard.printPieceBoard();
+            try
+            {
+                gameBoard.move(startRow-1, startCol, endRow-1, endCol, getPlayer(), validateInputLoop);
+            }
+            catch(const runtime_error& rte)
+            {
+                cout << rte.what() << endl;
+                validateInputLoop = false;
+            }
         }
         else 
         {
@@ -265,3 +263,4 @@ void game::usersMoving()
     //RUNTIME STUFF 
     //  ALSO WHEN ASKING FOR A PIECE LOCATION AT RUNTIME
     //      CHECK AND MAKE SURE IT IS THE CORRECT PLAYERS PIECE
+

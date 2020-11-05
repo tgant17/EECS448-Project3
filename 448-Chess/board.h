@@ -89,11 +89,12 @@ class board
         void printPieceBoard();
 
 
-        void move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player);
+        void move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x);
         string getLocation();
         bool isOffBoard(int x, int y); 
         int convertCharToInt(char letter); 
-        void attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player);
+        void attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x);
+        int getPlayerByPiece(char piece); 
 
     
 };
