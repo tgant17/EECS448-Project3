@@ -42,14 +42,14 @@
      //if there is a piece at this space on the board
      if(!emptySpace(b[row][col]))
      {
-         result =  false;
+         return(false);
      }
      // check if its NOT diagonal
      // if the difference between the startingRow and the destination row
      // is equal to the difference between the startingCol and the destination col
      if(abs(currentRowPos - row) != abs(currentColPos - col))
      {
-         result =  false;
+         return(false);
      }
 
      while (true)
@@ -112,7 +112,7 @@ bool bishop::validAttack(int row, int col, char **b)//good
     bool result = true;
     if (!isOpposingPlayer(b[row][col]))
     {
-        result =  false;
+        return(false);
     }
     else
     {
@@ -181,7 +181,6 @@ bool bishop::validAttack(int row, int col, char **b)//good
 
     return result;
 }
-
 
 
 char bishop::getSymbol()const

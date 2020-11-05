@@ -167,13 +167,13 @@ void board::setInitialLocation() //good
 
     //player 2 pieces being placed //
 
-    king* king2 = new king(0,3,2);
-    m_board[0][3] = king2->getSymbol(); 
-    addToPieceBoard(king2,0,3); 
+    king* king2 = new king(0,4,2);
+    m_board[0][4] = king2->getSymbol(); 
+    addToPieceBoard(king2,0,4); 
 
-    queen* queen2 = new queen(0,4,2);
-    m_board[0][4] = queen2->getSymbol();
-    addToPieceBoard(queen2,0,4); 
+    queen* queen2 = new queen(0,3,2);
+    m_board[0][3] = queen2->getSymbol();
+    addToPieceBoard(queen2,0,3); 
 
     rook* player2rook0 = new rook(0,0,2);
     rook* player2rook1 = new rook(0,7,2); 

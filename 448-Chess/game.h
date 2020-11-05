@@ -10,12 +10,15 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <string>
 #include "board.h"
+using namespace std;
 
 class game 
 {
     private:
         board gameBoard;
+        int whichPlayer; 
 
 
     public:
@@ -23,6 +26,15 @@ class game
         game();
         ~game(){}
         void run(); 
+
+        bool checkMate();
+        void changePlayer(int player); //changes from player 1 to player 2
+        int getPlayer();
+        bool isLetter(char letter); 
+        bool isNumber(char num);
+
+        void usersMoving();
+
 
 
 
