@@ -26,7 +26,7 @@
  {
     if(!validMove(row, col, b))
     {
-        throw(std::runtime_error("invalid move for KING"));
+        throw(std::runtime_error("invalid move for queen"));
     }
     else 
     {
@@ -37,7 +37,15 @@
 
 void queen::attack(int row, int col, char **b)
 {
-    //needs to be defined
+    if(!validMove(row, col, b))
+    {
+        throw(std::runtime_error("invalid attack for queen"));
+    }
+    else 
+    {
+        currentColPos = col; 
+        currentRowPos = row; 
+    }
 }
 
 bool queen::validMove(int row, int col, char **b)
