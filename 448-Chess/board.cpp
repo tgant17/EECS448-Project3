@@ -234,7 +234,12 @@ bool board::checkForPiece(int row, int col)
 
 void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x)
 {
-    if(checkForPiece(pickRow, pickCol)) //if there is a piece on this spot 
+    if(!checkForPiece(pickRow,pickCol))
+    {
+        x = false;
+        throw(std::runtime_error("there is no piece at this location to move"));
+    }
+    else //if there is a piece on this spot 
     {
         //if the piece does not belong to the correct player
         if(getPlayerByPiece(m_board[pickRow][pickCol]) != player)
@@ -270,7 +275,12 @@ void board::move(int pickRow, int pickCol, int moveToRow, int moveToCol, int pla
 
 void board::attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x)
 {
-    if(checkForPiece(pickRow, pickCol))
+    if(!checkForPiece(pickRow,pickCol))
+    {
+        x = false;
+        throw(std::runtime_error("There is no piece in that position to move"));
+    }
+    else
     {
         //if the piece does not belong to the correct player
         if(getPlayerByPiece(m_board[pickRow][pickCol]) != player)
@@ -377,3 +387,221 @@ int board::getPlayerByPiece(char piece)
     }
     else return 0; 
 }
+
+bool board::inCheck(int player)
+{
+    //the king is not on the board 
+    if(getKingRow(player) == -1 && getKingCol(player) == -1)
+    {
+        return(false);
+    }
+
+    //loop through the board and check the remaining pieces to see if they can 
+    //attack the king at position
+    if(canPieceAttackTheKing(player, getKingRow(player), getKingCol(player))) return true; 
+
+    //should be false if it gets to this point
+    else return(false);
+    
+}
+
+bool board::canPieceAttackTheKing(int player, int r, int c)
+{
+    for(int i = 0; i < 8; i++)
+    {
+        for(int j = 0; j < 8; j++)
+        {
+            //it is an opposing player (lowercase)
+            if(player != getPlayerByPiece(m_board[i][j]))
+            {
+                //that can attack the king 
+                if(m_PiecesBoard[i][j] != nullptr)
+                {
+                    if(true == m_PiecesBoard[i][j]->validAttack(r,c, m_board) || m_PiecesBoard[i][j]->validMove(r,c,m_board) == true)
+                    {
+                        //cout is for testing
+                        // cout << i+1 << j+1 << endl; 
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    //nothing can attack the king
+    return false; 
+}
+
+int board::getKingRow(int player)
+{
+    int kingPositionRow = -1;
+
+    //first find the kings on the board 
+    for(int i = 0; i < 8; i++)
+    {
+        for(int j = 0; j < 8; j++)
+        {
+            if(player == 1 && m_board[i][j] == 'K')
+            {
+                // cout << i << j << endl;
+                kingPositionRow = i; 
+            }
+            //SECOND KING
+            if(player == 2 && m_board[i][j] == 'k')
+            {
+                kingPositionRow = i;
+            }
+        }
+    }
+    if(kingPositionRow == -1) return 0; 
+    else return(kingPositionRow);
+}
+
+int board::getKingCol(int player)
+{
+    int kingPositionCol = -1;
+
+    //first find the kings on the board 
+    for(int i = 0; i < 8; i++)
+    {
+        for(int j = 0; j < 8; j++)
+        {
+            if(player == 1 && m_board[i][j] == 'K')
+            {
+                // cout << i << j << endl;
+                kingPositionCol = j; 
+            }
+            //SECOND KING
+            if(player == 2 && m_board[i][j] == 'k')
+            {
+                kingPositionCol = j;
+            }
+        }
+    }
+    if(kingPositionCol == -1) return 0; 
+    else return(kingPositionCol);
+}
+
+
+bool board::checkKingMoves(int player)
+{
+    //the king is not on the board 
+    if(getKingRow(player) == -1 && getKingCol(player) == -1)
+    {
+        return(false);
+    }
+
+    //redefine variables
+    int r = getKingRow(player);
+    int c = getKingCol(player); 
+    
+
+    //check all moves for the king to see if he can move/attack out of check
+    //check when the king moves if he can still be attacked
+    //check down
+    if(m_PiecesBoard[r][c]->validMove(r+1,c,m_board) || m_PiecesBoard[r][c]->validAttack(r+1,c,m_board))
+    {
+        if(canPieceAttackTheKing(player, r+1, c)) return true; 
+        else return(false); 
+    } 
+    
+    //check up
+    else if(m_PiecesBoard[r][c]->validMove(r-1,c,m_board) || m_PiecesBoard[r][c]->validAttack(r-1,c,m_board))
+    {
+        if(canPieceAttackTheKing(player, r-1, c)) return true; 
+        else return(false); 
+    }
+    
+    //check right
+    else if(m_PiecesBoard[r][c]->validMove(r,c+1,m_board) || m_PiecesBoard[r][c]->validAttack(r,c+1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r, c+1)) return true; 
+        else return(false);    
+    }
+    
+    //check left
+    else if(m_PiecesBoard[r][c]->validMove(r,c-1,m_board) || m_PiecesBoard[r][c]->validAttack(r,c-1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r, c-1)) return true; 
+        else return(false);        
+    }
+    
+    //check down and right
+    else if(m_PiecesBoard[r][c]->validMove(r+1,c+1,m_board) || m_PiecesBoard[r][c]->validAttack(r+1,c+1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r+1, c+1)) return true; 
+        else return(false); 
+    }
+    
+    //check down and left
+    else if(m_PiecesBoard[r][c]->validMove(r+1,c-1,m_board) || m_PiecesBoard[r][c]->validAttack(r+1,c-1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r+1, c-1)) return true; 
+        else return(false); 
+    }
+    
+    //check up and left
+    else if(m_PiecesBoard[r][c]->validMove(r-1,c-1,m_board) || m_PiecesBoard[r][c]->validAttack(r-1,c-1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r-1, c-1)) return true; 
+        else return(false); 
+    } 
+
+    //check up and right
+    else if(m_PiecesBoard[r][c]->validMove(r-1,c+1,m_board) || m_PiecesBoard[r][c]->validAttack(r-1,c+1,m_board))
+    {
+        if(canPieceAttackTheKing(player, r-1, c+1)) return true; 
+        else return(false); 
+    }
+    
+    //the king has no where he can move to or attack
+    else 
+    {
+        cout << "CHECKMATE" << endl;
+        return(true);
+    }
+
+}
+ 
+
+
+
+
+
+
+
+
+bool board::isCheckMate(int player)
+{
+    bool bCheckmate = false; 
+
+    //1st case - is the king in check ?
+    if(!inCheck(player)) return false; 
+
+    //2nd case - Can the king move to other squares 
+    //define variables to store the positions of the kings
+    if(!checkKingMoves(player)) return false; 
+
+    
+}
+
+
+//I THINK THE PROBLEM IS THST THE KING IS GETTING ATTACKED AND DELETED BEFORE GOING BACK INTO THE CHECK FUNCTION
+//THIS IS CREATING A PROBLEM AS THE FOR LOOP SEARCHES THE ARRAY FOR THE KING BUT THERE IS NO KING THERE
+//THE TWO VARIABLES THAT ARE STORING THE KINGS COL AND ROW GO UNDEFINED
+//THE COMPILER ASSIGNS THEM RANDOM INTS BASED ON THERE PLACE IN MEMORY WHICH IS THEN BEING PLACED AS THE 
+//PARAMETERS IN THE VALID ATTACK FUCNTIONS,, THIS CAN BE FIXED IN A COUPLE DIFFERENT WAYS I THINK
+//ONE
+//BOUND CHECK ON THE BOARD IN ALL CHESS PIECE FILES FOR VALID MOVE AND ATTACK
+// THIS IS A SMART THING TO DO ANYWAY
+//NOT SURE IF THIS WILL FIX THE PROBLEM THO
+//TWO 
+//IF THERE IS NO KING? END THE GAME 
+
+
+//IN THE CAN PIECE ATTACK THEKING FUNCTION -- CREATE ANOTHER FUNCTION
+//THAT TAKES IN THE POSITION OF THE PIECE THAT THE CAN ATTACK THE KING 
+//AND SEE IF IT CAN BE ATTACKED BY AN OPPOSING PLAYERS PIECE
+
+//AFTER THE ABOVE IS IMPLEMENTED THE ONLY THING LEFT FOR CHECKMATE WILL
+//BE TO CHECK IF A PIECE CAN BE PUT IN THE WAY OF THE ATTACKING PIECE 
+//TO STOP THE CHECK

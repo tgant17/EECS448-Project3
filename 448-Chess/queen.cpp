@@ -97,5 +97,5 @@ bool queen::isOpposingPlayer(char s)
 
 bool queen::validAttack(int row, int col, char **b)
 {
-    //needs to be defined 
+    return false; 
 }

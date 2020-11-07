@@ -116,7 +116,7 @@ void rook::attack(int row, int col, char **b)
 
 bool rook::validAttack(int row, int col, char **b)
 {
-  //if there is an opposing player in the space you are moving to
+  //if there is not an opposing player in the space you are moving to
   if (!isOpposingPlayer(b[row][col])) return false; 
   else
   {

@@ -34,3 +34,8 @@ Source 6
     <https://stackoverflow.com/questions/13223399/deleting-a-pointer-in-c> 
     <myPointer = new int; //dynamically allocated, can call delete on it.> 
     <Read through this for some clarification on deallocating pointers in c++>
+
+Source 7
+    <https://www.daniweb.com/programming/software-development/threads/401497/chess-check-mate-suggestion#post1719312>
+    <Checkmate conditions>
+    <Used this source to learn all the positions of checkmate> 

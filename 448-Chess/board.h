@@ -95,6 +95,18 @@ class board
         int convertCharToInt(char letter); 
         void attack(int pickRow, int pickCol, int moveToRow, int moveToCol, int player, bool &x);
         int getPlayerByPiece(char piece); 
+        bool inCheck(int player); 
+
+        //returns true if he cant move out of check
+        bool checkKingMoves(int player);
+        // void checkHandling(int player);
+        bool isCheckMate(int player);
+
+        int getKingRow(int player); 
+        int getKingCol(int player);
+
+        bool canPieceAttackTheKing(int player, int r, int c); 
+
 
     
 };

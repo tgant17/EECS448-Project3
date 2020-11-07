@@ -13,32 +13,32 @@ game::game()
 {
     gameBoard.setInitialLocation(); //sets all the pieces on the board 
     whichPlayer = 1; //player 1 starts
+    m_checkMate = false;
 }
 
 void game::run()
 {
     //GAME INTRO 
-    //deals with declaration of variables 
     cout << "WELCOME TO CHESS\n" << endl;
-
-    
-
 
     /**
     * game loop starts
     * checks which player is playing 
     * asks if they would like to attack or move 
     */
-    while(!checkMate())
+    while(checkMate() == false)
     {
+        //if the game goes into checkMate then end the game
+        if(checkHandling()) continue;
         usersMoving();
         changePlayer(getPlayer());
     }
+    cout << "Game Over" << endl;
 }
 
 bool game::checkMate()
 {
-    return false;
+    return(m_checkMate);
 }
 
 void game::changePlayer(int player)
@@ -258,3 +258,27 @@ void game::usersMoving()
     }while(validateInputLoop == false);
 }
 
+bool game::checkHandling()
+{
+    //if either player is in check
+    if(gameBoard.inCheck(1))
+    {
+        cout << "Player 1 is in check" << endl;
+        if(gameBoard.checkKingMoves(1)) 
+        {
+            m_checkMate = true; 
+            return(true); 
+        }
+
+    }
+    //player 2
+    if(gameBoard.inCheck(2))
+    {
+        cout << "Player 2 is in check" << endl;
+        if(gameBoard.checkKingMoves(2)) 
+        {
+            m_checkMate = true; 
+            return(true); 
+        }
+    }
+}

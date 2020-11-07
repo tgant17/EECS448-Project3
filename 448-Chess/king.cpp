@@ -50,6 +50,9 @@ void king::attack(int row, int col, char **b)
 
 bool king::validMove(int row, int col, char **b)
 {
+    //if its off the board
+    if(row > 7 || col > 7 || row < 0 || col < 0) return false; 
+
     //if there is a piece in the space already 
     if(!emptySpace(b[row][col])) return false;
 
@@ -133,6 +136,9 @@ bool king::isOpposingPlayer(char s)
 
 bool king::validAttack(int row, int col, char **b)
 {
+    // off the board
+    if(row > 7 || col > 7 || row < 0 || col < 0) return false;
+    
     //if the space you are attacking is not an opposing player
     if(!isOpposingPlayer(b[row][col])) return false; 
     else 

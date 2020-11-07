@@ -59,6 +59,15 @@
         virtual bool validMove(int row, int col, char **b) = 0;
 
         /**
+        * @pre The chess piece has been created 
+        * @param row - where to attack on board 
+        * @param col - where to attack on board 
+        * @param col - takes in a 2D array of chars to determine where other pieces are on the board
+        * @post checks and makes sure the chessPiece can attack that way
+        */
+        virtual bool validAttack(int row, int col, char **b) = 0;
+
+        /**
         * @pre The chess piece can be created 
         * @post returns the symbol of the chess piece 
         */

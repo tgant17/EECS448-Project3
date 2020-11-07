@@ -19,6 +19,7 @@ class game
     private:
         board gameBoard;
         int whichPlayer; 
+        bool m_checkMate; 
 
 
     public:
@@ -34,6 +35,7 @@ class game
         bool isNumber(char num);
 
         void usersMoving();
+        bool checkHandling(); 
 
 
 

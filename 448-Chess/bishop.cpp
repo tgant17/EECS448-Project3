@@ -109,77 +109,78 @@ void bishop::attack(int row, int col, char **b)//good
 
 bool bishop::validAttack(int row, int col, char **b)//good
 {
-    bool result = true;
-    if (!isOpposingPlayer(b[row][col]))
-    {
-        return(false);
-    }
-    else
-    {
-        if(currentRowPos == row && currentColPos != col)
-        {
-            result =  false;
-        }
-        if(currentRowPos != row && currentColPos == col)
-        {
-            result =  false;
-        }
+    return false;
+    // bool result = true;
+    // if (!isOpposingPlayer(b[row][col]))
+    // {
+    //     return(false);
+    // }
+    // else
+    // {
+    //     if(currentRowPos == row && currentColPos != col)
+    //     {
+    //         result =  false;
+    //     }
+    //     if(currentRowPos != row && currentColPos == col)
+    //     {
+    //         result =  false;
+    //     }
 
-        if(row < currentRowPos && col < currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row++;
-                col--;
-                if( !emptySpace(b[row][col])  )
-                {
-                    result =  false;
-                    break;
-                }
-            }
-        }
-        if(row < currentRowPos && col > currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row++;
-                col--;
-                if( !emptySpace(b[row][col])  )
-                {
-                    result =  false;
-                    break;
-                }
-            }
-        }
-        if(row > currentRowPos && col > currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row--;
-                col--;
-                if( !emptySpace(b[row][col])  )
-                {
-                    result =  false;
-                    break;
-                }
-            }
-        }
-        if(row > currentRowPos && col < currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row--;
-                col++;
-                if( !emptySpace(b[row][col])  )
-                {
-                    result =  false;
-                    break;
-                }
-            }
-        }
-    }
+    //     if(row < currentRowPos && col < currentColPos)
+    //     {
+    //         while (row != currentRowPos && col != currentColPos)
+    //         {
+    //             row++;
+    //             col--;
+    //             if( !emptySpace(b[row][col])  )
+    //             {
+    //                 result =  false;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     if(row < currentRowPos && col > currentColPos)
+    //     {
+    //         while (row != currentRowPos && col != currentColPos)
+    //         {
+    //             row++;
+    //             col--;
+    //             if( !emptySpace(b[row][col])  )
+    //             {
+    //                 result =  false;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     if(row > currentRowPos && col > currentColPos)
+    //     {
+    //         while (row != currentRowPos && col != currentColPos)
+    //         {
+    //             row--;
+    //             col--;
+    //             if( !emptySpace(b[row][col])  )
+    //             {
+    //                 result =  false;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     if(row > currentRowPos && col < currentColPos)
+    //     {
+    //         while (row != currentRowPos && col != currentColPos)
+    //         {
+    //             row--;
+    //             col++;
+    //             if( !emptySpace(b[row][col])  )
+    //             {
+    //                 result =  false;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
 
-    return result;
+    // return result;
 }
 
 

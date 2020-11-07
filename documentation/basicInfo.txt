@@ -39,3 +39,12 @@ Information regarding Chess
         -can not move into spaces that would put the it into "check" 
             -check meaning that an opposing piece on the board can kill the king
             -if the king is put into check then the player who's king is in check must move his king out of check 
+
+-Checkmate conditions
+    1) The king is in check.
+    2) There is no move that the king can make that takes it out of check.
+    3) It is not possible to capture the attacking piece.
+    4) It is not possible to interpose a piece between the king and the attacking piece.
+
+    (3) and (4) are impossible if there is more than one attacking piece.
+    (4) is impossible if the attacking piece is a knight
