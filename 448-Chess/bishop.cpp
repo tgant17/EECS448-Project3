@@ -122,57 +122,9 @@ bool bishop::validAttack(int row, int col, char **b)//good
 
         else if(row == currentRowPos-1 && col == currentColPos-1) return true;
 
-        else if( row < currentRowPos && col < currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row++;
-                col++;
-                if(emptySpace(b[row][col])){return true;}
-                else return false;
-            }
-        }
-
-        else if( row < currentRowPos && col > currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row++;
-                col--;
-                if(emptySpace(b[row][col])){return true;}
-                else return false;
-            }
-        }
-
-        else if( row > currentRowPos && col > currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row--;
-                col--;
-                if(emptySpace(b[row][col])){return true;}
-                else return false;
-            }
-        }
-
-        else if( row > currentRowPos && col < currentColPos)
-        {
-            while (row != currentRowPos && col != currentColPos)
-            {
-                row--;
-                col++;
-                if(emptySpace(b[row][col])){return true;}
-                else return false;
-            }
-        }
-
+        else if(abs(row - currentRowPos) == abs(col - currentColPos)){ return true; }
         else return false;
-
-
     }
-
-
-
 }
 
 
