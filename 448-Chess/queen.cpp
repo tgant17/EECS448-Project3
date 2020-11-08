@@ -85,15 +85,127 @@ bool queen::validAttack(int row, int col, char **b)
 bool queen::validMove(int row, int col, char **b)//good
 {
 
-    if (!emptySpace(b[row][col])) return false;
-
-    else if(currentRowPos == row && currentColPos == col) return false;
+    if(!emptySpace(b[row][col])) return false;
 
     else if(
          abs(currentRowPos - row) != abs(currentColPos - col)  &&
          currentRowPos != row && currentColPos != col
-       ) return false;
+       )
+       {
+           return false;
+       }
+    else if ( abs(currentRowPos - row) == abs(currentColPos - col) )
+    {
+        bool result =  true;
+        while (true)
+        {
+            if(row == currentRowPos && col == currentColPos)
+            {
+                break;
+            }
+            else
+            {
+                if( emptySpace(b[row][col]) )
+                {
+                    if(row > currentRowPos && col > currentColPos)
+                    {
+                        row--;
+                        col--;
+                    }
+                    else if(row > currentRowPos && col < currentColPos)
+                    {
+                        row--;
+                        col++;
+                    }
+                    else if( row < currentRowPos && col < currentColPos)
+                    {
+                        row++;
+                        col++;
+                    }
+                    else if(row < currentRowPos && col > currentColPos)
+                    {
+                        row++;
+                        col--;
+                    }
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    else if ( currentRowPos == row )
+    {
+        bool result =  true;
+        while (true)
+        {
+            if(col == currentColPos)
+            {
+                break;
+            }
+            else
+            {
+                if( emptySpace(b[row][col]) )
+                {
+                    if( col > currentColPos)
+                    {
+                        col--;
+                    }
+                    else if( col < currentColPos)
+                    {
+                        col++;
+                    }
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+
+    }
+
+    else if ( currentColPos == col )
+    {
+        bool result =  true;
+        while (true)
+        {
+            if(row == currentRowPos)
+            {
+                break;
+            }
+            else
+            {
+                if( emptySpace(b[row][col]) )
+                {
+                    if( row > currentRowPos)
+                    {
+                        row--;
+                    }
+                    else if( row < currentRowPos)
+                    {
+                        row++;
+                    }
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+
+    }
+
     else return true;
+
 }
 
 char queen::getSymbol()const
