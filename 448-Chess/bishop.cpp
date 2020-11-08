@@ -109,78 +109,70 @@ void bishop::attack(int row, int col, char **b)//good
 
 bool bishop::validAttack(int row, int col, char **b)//good
 {
-    return false;
-    // bool result = true;
-    // if (!isOpposingPlayer(b[row][col]))
-    // {
-    //     return(false);
-    // }
-    // else
-    // {
-    //     if(currentRowPos == row && currentColPos != col)
-    //     {
-    //         result =  false;
-    //     }
-    //     if(currentRowPos != row && currentColPos == col)
-    //     {
-    //         result =  false;
-    //     }
+    if(!isOpposingPlayer(b[row][col])) return false;
+    else
+    {
+        if(currentRowPos == row && currentColPos == col) return false;
 
-    //     if(row < currentRowPos && col < currentColPos)
-    //     {
-    //         while (row != currentRowPos && col != currentColPos)
-    //         {
-    //             row++;
-    //             col--;
-    //             if( !emptySpace(b[row][col])  )
-    //             {
-    //                 result =  false;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     if(row < currentRowPos && col > currentColPos)
-    //     {
-    //         while (row != currentRowPos && col != currentColPos)
-    //         {
-    //             row++;
-    //             col--;
-    //             if( !emptySpace(b[row][col])  )
-    //             {
-    //                 result =  false;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     if(row > currentRowPos && col > currentColPos)
-    //     {
-    //         while (row != currentRowPos && col != currentColPos)
-    //         {
-    //             row--;
-    //             col--;
-    //             if( !emptySpace(b[row][col])  )
-    //             {
-    //                 result =  false;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     if(row > currentRowPos && col < currentColPos)
-    //     {
-    //         while (row != currentRowPos && col != currentColPos)
-    //         {
-    //             row--;
-    //             col++;
-    //             if( !emptySpace(b[row][col])  )
-    //             {
-    //                 result =  false;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
+        if(row == currentRowPos+1 && col == currentColPos+1) return true;
 
-    // return result;
+        else if(row == currentRowPos+1 && col == currentColPos-1) return true;
+
+        else if(row == currentRowPos-1 && col == currentColPos+1) return true;
+
+        else if(row == currentRowPos-1 && col == currentColPos-1) return true;
+
+        else if( row < currentRowPos && col < currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row++;
+                col++;
+                if(emptySpace(b[row][col])){return true;}
+                else return false;
+            }
+        }
+
+        else if( row < currentRowPos && col > currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row++;
+                col--;
+                if(emptySpace(b[row][col])){return true;}
+                else return false;
+            }
+        }
+
+        else if( row > currentRowPos && col > currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row--;
+                col--;
+                if(emptySpace(b[row][col])){return true;}
+                else return false;
+            }
+        }
+
+        else if( row > currentRowPos && col < currentColPos)
+        {
+            while (row != currentRowPos && col != currentColPos)
+            {
+                row--;
+                col++;
+                if(emptySpace(b[row][col])){return true;}
+                else return false;
+            }
+        }
+
+        else return false;
+
+
+    }
+
+
+
 }
 
 
