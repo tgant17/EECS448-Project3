@@ -1,4 +1,4 @@
-# EECS 448 - PROJECT 3
+# EECS 448 - PROJECT 3 / 4
  For this program we created a game of Chess
  * Coding implementation was in C++
  * Executive class controls bulk of program operation.
