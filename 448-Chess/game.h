@@ -37,6 +37,8 @@ class game
         void usersMoving();
         bool checkHandling(); 
 
+        void testFunctionality(); 
+
 
 
 

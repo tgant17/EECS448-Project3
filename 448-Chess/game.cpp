@@ -19,21 +19,35 @@ game::game()
 void game::run()
 {
     //GAME INTRO 
-    cout << "WELCOME TO CHESS\n" << endl;
-
-    /**
-    * game loop starts
-    * checks which player is playing 
-    * asks if they would like to attack or move 
-    */
-    while(checkMate() == false)
+    char test; 
+    cout << "Would you like to run the test suite or play the game? ('r' : run, press anything else : play): "; 
+    cin >> test; 
+    if(test == 'r')
     {
-        //if the game goes into checkMate then end the game
-        if(checkHandling()) continue;
-        usersMoving();
-        changePlayer(getPlayer());
+        system("clear");
+        testFunctionality();
     }
-    cout << "Game Over" << endl;
+    else 
+    {
+        system("clear");
+        cout << "WELCOME TO CHESS\n" << endl;
+
+        /**
+        * game loop starts
+        * checks which player is playing 
+        * asks if they would like to attack or move 
+        */
+        while(checkMate() == false)
+        {
+            //if the game goes into checkMate then end the game
+            if(checkHandling()) continue;
+            usersMoving();
+            changePlayer(getPlayer());
+        }
+        gameBoard.printPieceBoard();
+        cout << "Game Over" << endl;
+    }
+
 }
 
 bool game::checkMate()
@@ -264,8 +278,9 @@ bool game::checkHandling()
     if(gameBoard.inCheck(1))
     {
         cout << "Player 1 is in check" << endl;
-        if(gameBoard.checkKingMoves(1)) 
+        if(gameBoard.checkKingMoves(1) && !gameBoard.canPieceBeAttacked(2,gameBoard.getAttackKingRow(), gameBoard.getAttackKingCol())) 
         {
+            cout << "Checkmate" << endl;
             m_checkMate = true; 
             return(true); 
         }
@@ -275,10 +290,18 @@ bool game::checkHandling()
     if(gameBoard.inCheck(2))
     {
         cout << "Player 2 is in check" << endl;
-        if(gameBoard.checkKingMoves(2)) 
+        if(gameBoard.checkKingMoves(2) && !gameBoard.canPieceBeAttacked(2,gameBoard.getAttackKingRow(), gameBoard.getAttackKingCol())) 
         {
+            cout << "Checkmate" << endl;
             m_checkMate = true; 
             return(true); 
         }
     }
+    return false;
+}
+
+
+void game::testFunctionality()
+{
+    gameBoard.runTests();
 }

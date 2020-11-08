@@ -419,9 +419,11 @@ bool board::canPieceAttackTheKing(int player, int r, int c)
                 {
                     if(true == m_PiecesBoard[i][j]->validAttack(r,c, m_board) || m_PiecesBoard[i][j]->validMove(r,c,m_board) == true)
                     {
+                        attackKingRow = i; 
+                        attackKingCol = j; 
                         //cout is for testing
                         // cout << i+1 << j+1 << endl; 
-                        return true;
+                        return true; 
                     }
                 }
             }
@@ -561,28 +563,230 @@ bool board::checkKingMoves(int player)
     }
 
 }
- 
 
 
-
-
-
-
-
-
-bool board::isCheckMate(int player)
+bool board::canPieceBeAttacked(int player, int r, int c)
 {
-    bool bCheckmate = false; 
-
-    //1st case - is the king in check ?
-    if(!inCheck(player)) return false; 
-
-    //2nd case - Can the king move to other squares 
-    //define variables to store the positions of the kings
-    if(!checkKingMoves(player)) return false; 
-
-    
+    for(int i = 0; i < 8; i++)
+    {
+        for(int j = 0; j < 8; j++)
+        {
+            //it is an opposing player (lowercase)
+            if(player != getPlayerByPiece(m_board[i][j]))
+            {
+                //that can attack the the piece being passed in 
+                if(m_PiecesBoard[i][j] != nullptr)
+                {
+                    if(true == m_PiecesBoard[i][j]->validAttack(r,c, m_board) || m_PiecesBoard[i][j]->validMove(r,c,m_board) == true)
+                    {
+                        //cout is for testing
+                        // cout << i+1 << j+1 << endl; 
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    //nothing can attack the the piece
+    return false; 
 }
+
+int board::getAttackKingCol()
+{
+    return(attackKingCol);
+}
+
+int board::getAttackKingRow()
+{
+    return(attackKingRow);
+}
+
+void board::runTests()
+{
+    bool t = true;
+    cout << "1.) Pawn can move two spaces forward on turn 1: ";
+    if(m_PiecesBoard[6][0]->validMove(4,0,m_board))
+    {
+        cout << "PASSED\n";
+        move(6,0,4,0,1,t); 
+    } 
+    else cout << "FAILED\n"; 
+
+    cout << "2.) Pawn can't move two spaces forward on turn 2: ";
+    if(!m_PiecesBoard[4][0]->validMove(2,0,m_board)) cout << "PASSED\n";
+    else cout << "FAILED\n"; 
+
+    cout << "3.) Pawn can move one space forward on turn 2: ";
+    if(m_PiecesBoard[4][0]->validMove(3,0,m_board))
+    { 
+        cout << "PASSED\n";
+        move(4,0,3,0,1,t); 
+    } 
+    else cout << "FAILED\n"; 
+
+    cout << "4.) Pawn can move one space forward on turn 1: ";
+    if(m_PiecesBoard[1][1]->validMove(2,1,m_board))
+    { 
+        cout << "PASSED\n";
+        move(1,1,2,1,2,t); 
+    } 
+    else cout << "FAILED\n"; 
+
+    cout << "5.) Pawn can attack one space diagonal (Player 2): ";
+    if(m_PiecesBoard[2][1]->validAttack(3,0,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "6.) Pawn can attack one space diagonal (Player 1): ";
+    if(m_PiecesBoard[3][0]->validAttack(2,1,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "7.) Pawn can't attack one space in front (Player 1 & 2): ";
+    if(!m_PiecesBoard[3][0]->validAttack(2,0,m_board) && !m_PiecesBoard[2][1]->validAttack(3,1,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "8.) Pawn can't move if there is a player in front of them (Player 1 & 2): ";
+    move(1,0,2,0,2,t); 
+    if(!m_PiecesBoard[3][0]->validMove(2,0,m_board) && !m_PiecesBoard[2][0]->validMove(3,0,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "9.) Pawn can't move backwards (Player 1 & 2): ";
+    if(!m_PiecesBoard[3][0]->validMove(4,0,m_board) && !m_PiecesBoard[2][0]->validMove(1,0,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "10.) Pawn can't attack backwards (Player 1 & 2): ";
+    attack(2,1,3,0,2,t); 
+    move(6,1,4,1,1,t);
+    move(4,1,3,1,1,t);
+    move(3,1,2,1,1,t); 
+    if(!m_PiecesBoard[2][1]->validAttack(3,0,m_board) && !m_PiecesBoard[3][0]->validAttack(2,1,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "11.) Rook can move vertically (Player 1 & 2): ";
+    if(m_PiecesBoard[7][0]->validMove(4,0,m_board) && m_PiecesBoard[0][0]->validMove(1,0,m_board))
+    { 
+        cout << "PASSED\n";
+        move(7,0,4,0,1,t); 
+        move(0,0,1,0,2,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "12.) Rook can move horizontally (Player 1 & 2): ";
+    if(m_PiecesBoard[4][0]->validMove(4,7,m_board) && m_PiecesBoard[1][0]->validMove(1,1,m_board))
+    { 
+        cout << "PASSED\n";
+        move(4,0,4,7,1,t); 
+        move(1,0,1,1,2,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "13.) Rook can attack vertically (Player 1 & 2): ";
+    if(m_PiecesBoard[4][7]->validAttack(1,7,m_board) && m_PiecesBoard[1][1]->validAttack(2,1,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(4,7,1,7,1,t); 
+        attack(1,1,2,1,2,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "14.) Rook can attack horizontally (Player 1 & 2): ";
+    move(2,1,6,1,2,t); 
+    if(m_PiecesBoard[1][7]->validAttack(1,6,m_board) && m_PiecesBoard[6][1]->validAttack(6,2,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(1,7,1,6,1,t); 
+        attack(6,1,6,2,2,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "15.) Rook can't move diagonally (Player 1 & 2): ";
+    if(!m_PiecesBoard[1][6]->validMove(2,7,m_board) && !m_PiecesBoard[6][2]->validMove(5,3,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "16.) Rook can't attack diagonally (Player 1 & 2): ";
+    if(!m_PiecesBoard[1][6]->validAttack(2,7,m_board) && !m_PiecesBoard[6][2]->validAttack(5,3,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "17.) Knight's can only move in L shape: ";
+    move(7,1,5,2,1,t); 
+    if(!m_PiecesBoard[5][2]->validMove(4,2,m_board) && !m_PiecesBoard[5][2]->validMove(5,3,m_board) && !m_PiecesBoard[5][2]->validMove(4,3,m_board) && m_PiecesBoard[5][2]->validMove(3,3,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "18.) Knights can only move in L shape: ";
+    move(5,2,3,1,1,t); 
+    if(!m_PiecesBoard[3][1]->validAttack(3,0,m_board) && !m_PiecesBoard[3][1]->validAttack(0,1,m_board) && !m_PiecesBoard[3][1]->validMove(1,2,m_board) && m_PiecesBoard[3][1]->validAttack(1,2,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(3,1,1,2,1,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "19.) Bishops can only move diagonally: ";
+    move(6,2,2,2,2,t); //move rook out of the way
+    if(!m_PiecesBoard[7][2]->validMove(6,2,m_board) && !m_PiecesBoard[7][2]->validMove(7,1,m_board) && !m_PiecesBoard[7][2]->validMove(6,3,m_board) && m_PiecesBoard[7][2]->validMove(6,1,m_board))
+    { 
+        cout << "PASSED\n";
+        move(7,2,6,1,1,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "20.) Bishops can only attack diagonally: ";
+    move(6,1,5,0,1,t);
+    move(5,0,2,3,1,t);  
+    if(!m_PiecesBoard[2][3]->validAttack(2,2,m_board) && !m_PiecesBoard[2][3]->validAttack(1,3,m_board) && !m_PiecesBoard[2][3]->validAttack(1,2,m_board) && m_PiecesBoard[2][3]->validAttack(1,4,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(2,3,1,4,1,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "21.) King can move in any direction: ";
+    move(6,4,4,4,1,t); 
+    move(4,4,3,4,1,t);  
+    move(7,4,6,4,1,t); 
+    move(6,4,5,4,1,t);  
+    if(m_PiecesBoard[5][4]->validMove(6,4,m_board) && m_PiecesBoard[5][4]->validMove(5,3,m_board) && m_PiecesBoard[5][4]->validMove(4,5,m_board) && m_PiecesBoard[5][4]->validMove(4,3,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "22.) King can only move one space: ";
+    if(!m_PiecesBoard[5][4]->validMove(7,4,m_board) && !m_PiecesBoard[5][4]->validMove(5,2,m_board) && !m_PiecesBoard[5][4]->validMove(3,6,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+}
+
+
 
 
 //I THINK THE PROBLEM IS THST THE KING IS GETTING ATTACKED AND DELETED BEFORE GOING BACK INTO THE CHECK FUNCTION

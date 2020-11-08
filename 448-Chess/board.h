@@ -42,6 +42,9 @@ class board
         int m_rows; 
         int m_cols; 
 
+        int attackKingRow; 
+        int attackKingCol; 
+
         bool checkForPiece(int row, int col); //checks the board to see if its occupied
         // int checkPlayer(char piece, int player); //checks if its lowercase or uppercase
 
@@ -100,12 +103,18 @@ class board
         //returns true if he cant move out of check
         bool checkKingMoves(int player);
         // void checkHandling(int player);
-        bool isCheckMate(int player);
+        // bool isCheckMate(int player);
 
         int getKingRow(int player); 
         int getKingCol(int player);
 
+        int getAttackKingRow();
+        int getAttackKingCol(); 
+
         bool canPieceAttackTheKing(int player, int r, int c); 
+        bool canPieceBeAttacked(int player, int r, int c);
+        
+        void runTests();
 
 
     
