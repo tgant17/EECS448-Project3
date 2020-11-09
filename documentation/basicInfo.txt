@@ -21,7 +21,7 @@ Information regarding Chess
         -from their starting position they can either move one space or two spaces forward
         -if they are not in their starting position they can only move one space forward 
         -they can not go backwards 
-        -if a pawn reaches all the way to the other side of the board they can become a Queen
+        -if a pawn reaches all the way to the other side of the board they can promote
     -rooks 
         -can move orthogonally in a straight line as far as they would like 
     -knights 
