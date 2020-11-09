@@ -784,28 +784,38 @@ void board::runTests()
     } 
     else cout << "FAILED\n";
 
+    cout << "23.) Queen can move horizontally, vertically, and diagonally: ";
+    move(7,3,4,6,1,t); 
+    if(m_PiecesBoard[4][6]->validMove(4,0,m_board) && m_PiecesBoard[4][6]->validMove(2,6,m_board) && m_PiecesBoard[4][6]->validMove(7,3,m_board))
+    { 
+        cout << "PASSED\n";
+    } 
+    else cout << "FAILED\n";
+
+    cout << "24.) Queen can attack vertically: ";
+    move(4,6,4,5,1,t); 
+    if(m_PiecesBoard[4][5]->validAttack(1,5,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(4,5,1,5,1,t);
+    } 
+    else cout << "FAILED\n";
+
+    cout << "25.) Queen can attack diagonally: ";
+    if(m_PiecesBoard[1][5]->validAttack(0,6,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(1,5,0,6,1,t); 
+    } 
+    else cout << "FAILED\n";
+
+    cout << "26.) Queen can attack horizontally: ";
+    if(m_PiecesBoard[0][6]->validAttack(0,7,m_board))
+    { 
+        cout << "PASSED\n";
+        attack(0,6,0,7,1,t); 
+    } 
+    else cout << "FAILED\n";
+    
+
 }
-
-
-
-
-//I THINK THE PROBLEM IS THST THE KING IS GETTING ATTACKED AND DELETED BEFORE GOING BACK INTO THE CHECK FUNCTION
-//THIS IS CREATING A PROBLEM AS THE FOR LOOP SEARCHES THE ARRAY FOR THE KING BUT THERE IS NO KING THERE
-//THE TWO VARIABLES THAT ARE STORING THE KINGS COL AND ROW GO UNDEFINED
-//THE COMPILER ASSIGNS THEM RANDOM INTS BASED ON THERE PLACE IN MEMORY WHICH IS THEN BEING PLACED AS THE 
-//PARAMETERS IN THE VALID ATTACK FUCNTIONS,, THIS CAN BE FIXED IN A COUPLE DIFFERENT WAYS I THINK
-//ONE
-//BOUND CHECK ON THE BOARD IN ALL CHESS PIECE FILES FOR VALID MOVE AND ATTACK
-// THIS IS A SMART THING TO DO ANYWAY
-//NOT SURE IF THIS WILL FIX THE PROBLEM THO
-//TWO 
-//IF THERE IS NO KING? END THE GAME 
-
-
-//IN THE CAN PIECE ATTACK THEKING FUNCTION -- CREATE ANOTHER FUNCTION
-//THAT TAKES IN THE POSITION OF THE PIECE THAT THE CAN ATTACK THE KING 
-//AND SEE IF IT CAN BE ATTACKED BY AN OPPOSING PLAYERS PIECE
-
-//AFTER THE ABOVE IS IMPLEMENTED THE ONLY THING LEFT FOR CHECKMATE WILL
-//BE TO CHECK IF A PIECE CAN BE PUT IN THE WAY OF THE ATTACKING PIECE 
-//TO STOP THE CHECK
